@@ -1,0 +1,84 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #000;
+  padding: 20px;
+  border-right: 2px solid #ff5e00;
+}
+.sidebar h2 {
+  margin-bottom: 20px;
+  color: #ff5e00;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 15px 0;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.main-content h1 {
+  margin-bottom: 20px;
+  color: #ff5e00;
+}
+
+/* Form */
+.product-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.product-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  flex: 1;
+}
+.product-form button {
+  padding: 10px 15px;
+  background: #ff5e00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.product-table th,
+.product-table td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: center;
+}
+.product-table img {
+  border-radius: 5px;
+}
+.product-table button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background: #ff5e00;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}

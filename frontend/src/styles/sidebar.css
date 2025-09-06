@@ -1,0 +1,47 @@
+/* Parent container for sidebar + content */
+.app-container {
+  display: flex;
+  min-height: 100vh; /* full screen height */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #1e1e2f;
+  color: white;
+  padding: 20px;
+  flex-shrink: 0; /* prevent sidebar from shrinking */
+}
+
+/* Sidebar title */
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+/* Sidebar menu */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #333;
+  border-radius: 5px;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f8f9fa;
+}

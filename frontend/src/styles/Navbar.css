@@ -1,0 +1,53 @@
+.navbar-logo {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #d9534f; /* Bootstrap danger red */
+}
+
+.nav-link.active {
+  color: #d9534f;
+  font-weight: bold;
+}
+.nav-link .fa-shopping-cart {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover .fa-shopping-cart {
+  color: orange;   /* hover color */
+  transform: scale(1.1); /* subtle zoom */
+}
+
+@media (max-width: 576px) {
+  .navbar-logo {
+    width: 120px;
+    height: auto;
+  }
+}
+/* Cart badge styling */
+.navbar .badge {
+  font-size: 0.75rem;
+  padding: 0.25em 0.5em;
+}
+
+/* User button spacing */
+.navbar .btn-outline-dark {
+  margin-left: 0.5rem;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 768px) {
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+

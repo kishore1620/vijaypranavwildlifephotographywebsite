@@ -1,0 +1,17 @@
+.about-section img {
+  max-width: 100%;
+  border-radius: 15px;
+
+}
+.bg-dark-wildlife {
+  background-color: #111; /* almost black */
+}
+
+.text-warning {
+  color: #ff5e00 !important; /* warm orange accent */
+}
+
+.about-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
