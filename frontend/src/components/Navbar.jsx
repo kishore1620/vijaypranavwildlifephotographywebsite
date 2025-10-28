@@ -7,90 +7,117 @@ export default function Navbar() {
   const { user, logoutUser, cart } = useContext(UserContext);
   const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
+  const [isOpen, setIsOpen] = useState(false); // ✅ track collapse
 
   useEffect(() => {
     const totalQty = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
     setCartCount(totalQty);
   }, [cart]);
 
-  // Collapse navbar on scroll
+  // Auto-close on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const navCollapse = document.getElementById("navbarNav");
-      if (window.scrollY > 50 && navCollapse.classList.contains("show")) {
-        const bsCollapse = new window.bootstrap.Collapse(navCollapse, { toggle: false });
-        bsCollapse.hide();
+      if (window.scrollY > 50 && isOpen) {
+        setIsOpen(false);
       }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isOpen]);
 
-  const handleNavLinkClick = () => {
-    const navCollapse = document.getElementById("navbarNav");
-    if (navCollapse.classList.contains("show")) {
-      const bsCollapse = new window.bootstrap.Collapse(navCollapse, { toggle: false });
-      bsCollapse.hide();
-    }
+  const handleNavClick = (path) => {
+    navigate(path);
+    setIsOpen(false); // ✅ close menu after navigating
   };
 
   const handleLogout = () => {
     if (logoutUser) {
       logoutUser();
       navigate("/login");
-      handleNavLinkClick();
+      setIsOpen(false);
     }
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
       <div className="container">
-        <NavLink className="navbar-brand" to="/store" onClick={handleNavLinkClick}>
-          <img src="img/headerlogo1.jpg" alt="Logo" className="navbar-logo" />
-        </NavLink>
+        {/* Brand logo */}
+        <span
+          className="navbar-brand"
+          role="button"
+          onClick={() => handleNavClick("/store")}
+        >
+          <img src="/img/headerlogo1.jpg" alt="Logo" className="navbar-logo" />
+        </span>
 
+        {/* Toggle button */}
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
+          onClick={() => setIsOpen(!isOpen)} // ✅ toggle state
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+        {/* Collapsible menu */}
+        <div
+          className={`collapse navbar-collapse justify-content-end ${
+            isOpen ? "show" : ""
+          }`}
+          id="navbarNav"
+        >
           <ul className="navbar-nav text-center text-black">
             <li className="nav-item px-3">
-              <NavLink className="nav-link" to="/about" onClick={handleNavLinkClick}>
+              <span
+                className="nav-link"
+                role="button"
+                onClick={() => handleNavClick("/about")}
+              >
                 ABOUT
-              </NavLink>
+              </span>
             </li>
             <li className="nav-item px-3">
-              <NavLink className="nav-link" to="/gallery" onClick={handleNavLinkClick}>
+              <span
+                className="nav-link"
+                role="button"
+                onClick={() => handleNavClick("/gallery")}
+              >
                 MY GALLERY
-              </NavLink>
+              </span>
             </li>
             <li className="nav-item px-3">
-              <NavLink className="nav-link" to="/store" onClick={handleNavLinkClick}>
+              <span
+                className="nav-link"
+                role="button"
+                onClick={() => handleNavClick("/store")}
+              >
                 STORE
-              </NavLink>
+              </span>
             </li>
             <li className="nav-item px-3">
-              <NavLink className="nav-link" to="/contact" onClick={handleNavLinkClick}>
+              <span
+                className="nav-link"
+                role="button"
+                onClick={() => handleNavClick("/contact")}
+              >
                 CONTACT
-              </NavLink>
+              </span>
             </li>
 
-            {/* Cart Icon */}
+            {/* Cart */}
             <li className="nav-item px-3">
-              <NavLink className="nav-link position-relative" to="/cart" onClick={handleNavLinkClick}>
+              <span
+                className="nav-link position-relative"
+                role="button"
+                onClick={() => handleNavClick("/cart")}
+              >
                 <i className="fa-solid fa-cart-shopping fa-lg"></i>
                 {cartCount > 0 && (
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {cartCount}
                   </span>
                 )}
-              </NavLink>
+              </span>
             </li>
 
             {/* User Dropdown */}
@@ -107,20 +134,32 @@ export default function Navbar() {
                 </span>
                 <ul className="dropdown-menu dropdown-menu-end">
                   <li>
-                    <NavLink className="dropdown-item" to="/profile" onClick={handleNavLinkClick}>
+                    <span
+                      className="dropdown-item"
+                      role="button"
+                      onClick={() => handleNavClick("/profile")}
+                    >
                       Profile
-                    </NavLink>
+                    </span>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to="/orders" onClick={handleNavLinkClick}>
+                    <span
+                      className="dropdown-item"
+                      role="button"
+                      onClick={() => handleNavClick("/orders")}
+                    >
                       My Orders
-                    </NavLink>
+                    </span>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <span className="dropdown-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
+                    <span
+                      className="dropdown-item"
+                      role="button"
+                      onClick={handleLogout}
+                    >
                       Logout
                     </span>
                   </li>
@@ -128,9 +167,13 @@ export default function Navbar() {
               </li>
             ) : (
               <li className="nav-item px-3">
-                <NavLink className="btn btn-outline-dark" to="/login" onClick={handleNavLinkClick}>
+                <span
+                  className="btn btn-outline-dark"
+                  role="button"
+                  onClick={() => handleNavClick("/login")}
+                >
                   Login / Signup
-                </NavLink>
+                </span>
               </li>
             )}
           </ul>

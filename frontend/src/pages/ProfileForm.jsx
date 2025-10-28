@@ -226,7 +226,7 @@ const ProfileForm = () => {
                             <h4 className="mt-2 text-dark" style={{textAlign:"center"}} >
                                 {savedProfile?.name || "No name yet"}
                             </h4>
-                            <p className="text-muted mb-1">
+                            <p className="text-warning mb-1">
                                 <strong>Email:</strong> {savedProfile?.email || "Not set"}
                             </p>
                             <p className="text-muted mb-1">

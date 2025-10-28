@@ -30,7 +30,7 @@ const images = [
   { month: "APR", src: "img/Monkey mother love 16 apr 2022.jpg", alt: "Monkey mother love", link: "https://www.instagram.com/p/CcaXf4Np-K6/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", title: "APR 2022" },
   { month: "AUG", src: "img/Sambar deer 23 aug 2022.jpg", alt: "Sambar Deer", link: "https://www.instagram.com/p/ChmiCiEpZ7g/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", title: "AUG 2022" },
   { month: "AUG", src: "img/Vernal hanging parrot 9 Aug 2022.jpg", alt: "hanging Parrot", link: "https://www.instagram.com/p/ChCsplbpV5l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", title: "AUG 2022" },
-  { month: "JAN", src: "img/tiger with son 10 JAN.JPG", alt: "tiger with son", link: "https://www.instagram.com/vijaypranav_photography/p/Cg4SmOTJDW9", title: "JAN 2024" }
+  { month: "JAN", src: "img/tiger-with-son-10-JAN.JPG", alt: "tiger with son", link: "https://www.instagram.com/vijaypranav_photography/p/Cg4SmOTJDW9", title: "JAN 2024" }
 ];
 
 const months = ["ALL", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
