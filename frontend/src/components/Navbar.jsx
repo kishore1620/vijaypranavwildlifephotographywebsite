@@ -130,7 +130,7 @@ export default function Navbar() {
                   aria-expanded="false"
                   style={{ cursor: "pointer" }}
                 >
-                  Hi, {user._name}
+                  Welcome, {user.name}
                 </span>
                 <ul className="dropdown-menu dropdown-menu-end">
                   <li>

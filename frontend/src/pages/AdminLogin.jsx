@@ -4,30 +4,29 @@ import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false); // 👈 NEW
   const navigate = useNavigate();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.post("http://localhost:5000/api/admin/login", form);
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/admin/login", form);
 
-    // ✅ Save token and admin info
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("admin", JSON.stringify(res.data.admin));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("admin", JSON.stringify(res.data.admin));
 
-    // ✅ Navigate after saving
-    navigate("/admin/dashboard");
-  } catch (err) {
-    if (err.response?.status === 404) {
-      navigate("/admin/signup");
-    } else {
-      alert(err.response?.data?.msg || "Login failed");
+      navigate("/admin/dashboard");
+    } catch (err) {
+      if (err.response?.status === 404) {
+        navigate("/admin/signup");
+      } else {
+        alert(err.response?.data?.msg || "Login failed");
+      }
     }
-  }
-};
-
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-dark">
@@ -42,6 +41,7 @@ const AdminLogin = () => {
         }}
       >
         <h2 className="text-center mb-4 fw-bold">Admin Login</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Email</label>
@@ -55,18 +55,38 @@ const AdminLogin = () => {
               style={{ borderRadius: "10px" }}
             />
           </div>
+
+          {/* Password + Show/Hide */}
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="form-control form-control-lg"
-              placeholder="Enter password"
-              onChange={handleChange}
-              required
-              style={{ borderRadius: "10px" }}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="form-control form-control-lg"
+                placeholder="Enter password"
+                onChange={handleChange}
+                required
+                style={{ borderRadius: "10px", paddingRight: "50px" }}
+              />
+
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#ffb703",
+                  fontWeight: "500",
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
           </div>
+
           <button
             type="submit"
             className="btn w-100 py-2 fw-bold"
@@ -80,6 +100,7 @@ const AdminLogin = () => {
             Login
           </button>
         </form>
+
         <p className="mt-3 text-center">
           Don’t have an account?{" "}
           <span

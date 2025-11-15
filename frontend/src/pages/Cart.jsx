@@ -3,11 +3,13 @@ import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
+const BASE_URL = "http://localhost:5000";
+
 const Cart = () => {
   const { cart, setCart } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // ✅ Increase quantity
+  // Increase qty
   const increaseQty = (id) => {
     const updatedCart = cart.map((item) =>
       item._id === id ? { ...item, qty: item.qty + 1 } : item
@@ -16,7 +18,7 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // ✅ Decrease quantity
+  // Decrease qty
   const decreaseQty = (id) => {
     const updatedCart = cart
       .map((item) =>
@@ -28,22 +30,24 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // ✅ Remove item
+  // Remove item
   const removeFromCart = (id) => {
     const updatedCart = cart.filter((item) => item._id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // ✅ Total Price
+  // Total
   const total = cart.reduce(
     (sum, item) => sum + item.qty * (item.price || 799),
     0
   );
 
   return (
-    <div className="container my-5" >
-      <h2 className="text-center mb-4" style={{ marginTop: "170px" }}>🛒 Your Cart</h2>
+    <div className="container my-5">
+      <h2 className="text-center mb-4" style={{ marginTop: "170px" }}>
+        🛒 Your Cart
+      </h2>
 
       {cart.length === 0 ? (
         <div className="alert alert-warning text-center">
@@ -62,46 +66,80 @@ const Cart = () => {
                   <th>Action</th>
                 </tr>
               </thead>
+
               <tbody>
-                {cart.map((item) => (
-                  <tr key={item._id}>
-                    <td>{item.name}</td>
-                    <td>₹{item.price || 799}</td>
-                    <td>
-                      <div className="btn-group" role="group">
+                {cart.map((item) => {
+                  // Make sure image path is correct
+                  const imageURL = item.image
+                    ? `${BASE_URL}/${item.image.replace(/^\//, "")}`
+                    : "https://via.placeholder.com/60";
+
+                  return (
+                    <tr key={item._id}>
+                      {/* PRODUCT (Image + name) */}
+                      <td className="text-start d-flex align-items-center gap-2">
+                        <img
+                          src={imageURL}
+                          alt={item.name}
+                          style={{
+                            width: "60px",
+                            height: "60px",
+                            objectFit: "cover",
+                            borderRadius: "6px",
+                          }}
+                          onError={(e) => {
+                            e.target.src =
+                              "https://via.placeholder.com/60";
+                          }}
+                        />
+                        <strong>{item.name}</strong>
+                      </td>
+
+                      {/* PRICE */}
+                      <td>₹{item.price || 799}</td>
+
+                      {/* QUANTITY BUTTONS */}
+                      <td>
+                        <div className="btn-group" role="group">
+                          <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={() => decreaseQty(item._id)}
+                          >
+                            −
+                          </button>
+                          <span className="px-3 d-flex align-items-center">
+                            {item.qty}
+                          </span>
+                          <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={() => increaseQty(item._id)}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+
+                      {/* SUBTOTAL */}
+                      <td>₹{(item.price || 799) * item.qty}</td>
+
+                      {/* REMOVE BUTTON */}
+                      <td>
                         <button
-                          className="btn btn-sm btn-outline-secondary"
-                          onClick={() => decreaseQty(item._id)}
+                          className="btn btn-sm btn-danger"
+                          onClick={() => removeFromCart(item._id)}
                         >
-                          −
+                          ❌ Remove
                         </button>
-                        <span className="px-3 d-flex align-items-center">
-                          {item.qty}
-                        </span>
-                        <button
-                          className="btn btn-sm btn-outline-secondary"
-                          onClick={() => increaseQty(item._id)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </td>
-                    <td>₹{(item.price || 799) * item.qty}</td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        onClick={() => removeFromCart(item._id)}
-                      >
-                        ❌ Remove
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
+
             </table>
           </div>
 
-          {/* Total + Checkout */}
+          {/* TOTAL + CHECKOUT BUTTON */}
           <div className="d-flex justify-content-between align-items-center mt-3">
             <h4>Total: ₹{total}</h4>
             <button
