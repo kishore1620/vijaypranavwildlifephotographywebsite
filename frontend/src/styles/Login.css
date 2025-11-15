@@ -24,7 +24,7 @@
 
 /* Inputs */
 .custom-input {
-  height: 45px;
+  height: 75px;
   border-radius: 8px;
   transition: 0.2s ease;
 }
@@ -32,11 +32,12 @@
 .custom-input:focus {
   border-color: #ff8c00;
   box-shadow: 0 0 5px rgba(255, 140, 0, 0.4);
+  height: 50px;
 }
 
 /* Password extra padding */
 .password-input {
-  padding-right: 70px !important;
+  padding-right: 70px;
 }
 
 /* Show/Hide password button */

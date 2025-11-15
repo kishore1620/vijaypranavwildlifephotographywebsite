@@ -59,7 +59,9 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              style={{ height: "50px" }}
             />
+
 
             <button
               type="button"
